@@ -46,7 +46,7 @@ function handleMouseClick(e) {
 
 function handleKeyPress(e) {
     if (e.key.match(/^[a-zA-Z]$/)) {
-        pressKey(e.key);
+        pressKey(e.key.toLowerCase());
         return;
     }
     if (e.key === "Enter") {
@@ -102,8 +102,8 @@ function showAlert(text, duration = 1000) {
 }
 
 function checkWinLose(guess, activeTiles) {
-    const usedRows = guessGrid.querySelectorAll("[data-letter]").length / WORD_LENGTH;
-    const remainingRows = guessGrid.querySelectorAll(":not([data-letter])").length / WORD_LENGTH;
+    const usedRows = dataGrid.querySelectorAll("[data-letter]").length / WORD_LENGTH;
+    const remainingRows = dataGrid.querySelectorAll(":not([data-letter])").length / WORD_LENGTH;
     if (guess === targetWord) {
         const compliments = ["Genius", "Magnificent", "Impressive", "Splendid", "Great", "Phew"];
         showAlert(compliments[usedRows - 1], 5000);
