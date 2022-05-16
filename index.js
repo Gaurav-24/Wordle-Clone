@@ -73,6 +73,7 @@ function pressKey(key) {
     nextTile.dataset.state = "active";
     nextTile.textContent = key;
 }
+
 function deleteKey() {
     const activeTiles = getActiveTiles();
     const lastTile = activeTiles[activeTiles.length - 1];
@@ -99,15 +100,18 @@ function showAlert(text, duration = 1000) {
         })
     }, duration);
 }
+
 function checkWinLose(guess, activeTiles) {
+    const usedRows = guessGrid.querySelectorAll("[data-letter]").length / WORD_LENGTH;
+    const remainingRows = guessGrid.querySelectorAll(":not([data-letter])").length / WORD_LENGTH;
     if (guess === targetWord) {
-        showAlert("You Win", 5000);
+        const compliments = ["Genius", "Magnificent", "Impressive", "Splendid", "Great", "Phew"];
+        showAlert(compliments[usedRows - 1], 5000);
         danceTiles(activeTiles);
         stopInteraction();
         return;
     }
-    const remainingTiles = dataGrid.querySelectorAll(":not([data-letter])")
-    if (remainingTiles.length === 0) {
+    if (remainingRows === 0) {
         showAlert(`Correct Word: ${targetWord.toUpperCase()}`, null);
         stopInteraction();
     }
